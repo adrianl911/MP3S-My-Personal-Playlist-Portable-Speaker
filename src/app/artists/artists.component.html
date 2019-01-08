@@ -1,0 +1,12 @@
+<ul>
+  <li *ngFor="let artist of artists" class="list-of-artists">
+    {{artist.name}}
+    <ul>
+      <li *ngFor="let album of artist['albums']" class="list-of-albums">{{album.title}}
+        <ul>
+          <li *ngFor="let song of album['songs']" class="list-of-songs">{{song.title}}</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
