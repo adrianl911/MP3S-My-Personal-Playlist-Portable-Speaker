@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   templateUrl: './artists.component.html',
   styleUrls: ['./artists.component.less']
 })
+
 export class ArtistsComponent implements OnInit {
 
   artists: Object;

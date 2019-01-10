@@ -11,12 +11,21 @@ export class SongsComponent implements OnInit {
 
   artists: Object;
   songs$: any;
+
   constructor(private data: DataService) { }
 
   ngOnInit() {
     this.data.getArtist().subscribe(
       data => this.artists = data
     )
+  }
+
+  playMusic(source) {
+    console.log(source);
+    let audio = new Audio();
+    console.log(audio);
+    audio.src = source;
+    audio.play();
   }
 
 }

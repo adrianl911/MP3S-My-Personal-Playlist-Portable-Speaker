@@ -1,12 +1,39 @@
-<ul>
-  <li *ngFor="let artist of artists" class="list-of-artists">
-    {{artist.name}}
-    <ul>
-      <li *ngFor="let album of artist['albums']" class="list-of-albums">{{album.title}}
-        <ul>
-          <li *ngFor="let song of album['songs']" class="list-of-songs">{{song.title}}</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
+<mat-accordion *ngFor="let artist of artists" class="list-of-artists">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{artist.name}}
+          </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container *ngFor="let album of artist['albums']">
+      <button class="list-of-albums" mat-button [matMenuTriggerFor]="menu">
+        <img src="{{album.picture}}" class="album-picture" height="200px" width="200px">
+        {{album.title}}
+      </button>
+      <mat-menu class="list-of-songs" #menu="matMenu">
+        <button *ngFor="let song of album['songs']" mat-menu-item>{{song.title}}</button>
+      </mat-menu>
+    </ng-container>
+
+    <!--<ul *ngFor="let album of artist['albums']" class="list-of-albums">-->
+      <!--<li>{{album.title}}</li>-->
+    <!--</ul>-->
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+<!--<ul>-->
+  <!--<li *ngFor="let artist of artists" class="list-of-artists">-->
+    <!--{{artist.name}}-->
+    <!--<ul>-->
+      <!--<li *ngFor="let album of artist['albums']" class="list-of-albums">{{album.title}}-->
+        <!--<ul>-->
+          <!--<li *ngFor="let song of album['songs']" class="list-of-songs">{{song.title}}</li>-->
+        <!--</ul>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</li>-->
+<!--</ul>-->
+
+
+

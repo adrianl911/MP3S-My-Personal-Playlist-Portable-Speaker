@@ -1,32 +1,14 @@
-<!--<ul>-->
-  <!--<li *ngFor="let artist of artists" class="list-of-artists">-->
-    <!--{{artist.name}}-->
-    <!--<ul>-->
-      <!--<li *ngFor="let album of artist['albums']" class="list-of-albums">{{album.title}}-->
-        <!--<ul>-->
-          <!--<li *ngFor="let song of album['songs']" class="list-of-songs">{{song.title}}</li>-->
-        <!--</ul>-->
-      <!--</li>-->
-    <!--</ul>-->
-  <!--</li>-->
-<!--</ul>-->
-
 <ng-container *ngFor="let artist of artists" class="list-of-artists">
   <ng-container *ngFor="let album of artist['albums']" class="list-of-albums">
-    <!--<li *ngFor="let song of album['songs']" class="list-of-songs">{{song.title}}-->
       <mat-card class="song-card" *ngFor="let song of album['songs']" class="list-of-songs">
         <mat-card-content>
-          <mat-card-title>{{song.title}}</mat-card-title>
+          <mat-card-title class="song-title"><mat-icon class="play-arrow" (click)="playMusic(song.path);">play_arrow</mat-icon>{{song.title}}</mat-card-title>
           <mat-card-subtitle>{{artist.name}} • {{album.title}}<div class="card-spacer">{{song.length}}</div></mat-card-subtitle>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
       </mat-card>
-    <!--</li>-->
   </ng-container>
 </ng-container>
+
 
 
 

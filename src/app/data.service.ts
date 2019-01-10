@@ -9,6 +9,6 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getArtist() {
-    return this.http.get('http://localhost:3000/');
+    return this.http.get('http://135.243.227.41:3000/');
   }
 }

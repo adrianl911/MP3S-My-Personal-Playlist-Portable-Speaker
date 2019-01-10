@@ -4,6 +4,13 @@
 .logo-label {
   font-size: 24px;
 }
+mat-tab-header.mat-tab-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #170613;
+}
 .toolbar-button {
   background: #7b1fa2;
 }
@@ -21,6 +28,16 @@
   border-color:transparent;
   color: #fff;
 }
+ .footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: white;
+   color: white;
+   text-align: center;
+   z-index: 10;
+ }
 .mat-tab-group.mat-primary .mat-tab-label.cdk-keyboard-focused:not(.mat-tab-disabled), .mat-tab-group.mat-primary .mat-tab-label.cdk-program-focused:not(.mat-tab-disabled), .mat-tab-group.mat-primary .mat-tab-link.cdk-keyboard-focused:not(.mat-tab-disabled), .mat-tab-group.mat-primary .mat-tab-link.cdk-program-focused:not(.mat-tab-disabled), .mat-tab-nav-bar.mat-primary .mat-tab-label.cdk-keyboard-focused:not(.mat-tab-disabled), .mat-tab-nav-bar.mat-primary .mat-tab-link.cdk-keyboard-focused:not(.mat-tab-disabled), .mat-tab-nav-bar.mat.mat-primary .mat-tab-link.cdk-program-focused:not(.mat-tab-disabled) {
   background-color: #170613;
 }
