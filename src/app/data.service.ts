@@ -9,6 +9,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getArtist() {
-    return this.http.get('http://135.243.227.41:3000/');
+  	return this.http.get('http://192.168.43.32:8080/');
+  //return this.http.get('http://135.243.227.41:3000/');
   }
 }
