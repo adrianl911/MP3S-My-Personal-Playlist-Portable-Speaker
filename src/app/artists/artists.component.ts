@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from '../data.service';
+import { DataService } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,9 +15,10 @@ export class ArtistsComponent implements OnInit {
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getArtist().subscribe(
-      data => this.artists = data
-    )
+    this.data.getArtist().then((data) => { this.artists = data })
+    // this.data.getArtist().subscribe(
+    //   data => this.artists = data
+    // )
   }
 
 }

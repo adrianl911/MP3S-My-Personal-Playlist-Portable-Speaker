@@ -1,0 +1,69 @@
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button> -->
+<mat-vertical-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Select or add an artist</ng-template>
+      <mat-radio-group aria-label="Select an option" [(ngModel)]="artistSelection" [ngModelOptions]="{standalone: true}">
+      	<mat-radio-button value="1">Select an existing artist</mat-radio-button>
+      	<span class="radio-space"></span>
+      	<mat-radio-button value="2">Add a new artist</mat-radio-button>
+      </mat-radio-group>
+      <br>
+      <mat-form-field *ngIf="artistSelection == 1; else elseArtist">
+      	<!-- <mat-label class="form-labels">Select an existing artist</mat-label> -->
+        <mat-select [(value)]="selected" placeholder="Artist name">
+		  <mat-option *ngFor="let artist of artists" value={{artist.name}} (click)="update(selected)">{{artist.name}}</mat-option>
+		</mat-select>
+      </mat-form-field>
+      <ng-template #elseArtist>
+		<mat-form-field>
+		<!-- <mat-label>Add a new artist</mat-label> -->
+		<input #newArtist matInput placeholder="Artist name" formControlName="firstCtrl" required (keyup.enter)="update(newArtist.value)" (blur)="update(newArtist.value)">
+		</mat-form-field>
+	  </ng-template>
+	  <div>Value: {{value}}</div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Select or add an album</ng-template>
+      <mat-radio-group aria-label="Select an option" [(ngModel)]="albumSelection" [ngModelOptions]="{standalone: true}">
+      	<mat-radio-button value="1">Select an existing album</mat-radio-button>
+      	<span class="radio-space"></span>
+      	<mat-radio-button value="2">Add a new album</mat-radio-button>
+      </mat-radio-group>
+      <br>
+      <mat-form-field *ngIf="albumSelection == 1; else elseAlbum">
+      	<!-- <mat-label class="form-labels">Select an existing album</mat-label> -->
+        <mat-select [(value)]="selected" placeholder="Album name">
+        	<ng-container *ngFor="let artist of artists">
+	      <mat-option *ngFor="let album of artist['albums']" value={{artist.name}} (click)="update(selected)">{{album.title}}</mat-option></ng-container>
+	    </mat-select>
+      </mat-form-field>
+      <ng-template #elseAlbum>
+		<mat-form-field>
+		<!-- <mat-label>Add a new album</mat-label> -->
+		<input #newAlbum matInput placeholder="Album name" formControlName="secondCtrl" required (keyup.enter)="update(newAlbum.value)" (blur)="update(newAlbum.value)">
+		</mat-form-field>
+	  </ng-template>
+	  <div>Value: {{value}}</div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

@@ -9,14 +9,24 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material';
 import { SongsComponent } from './songs/songs.component';
 import { ArtistsComponent } from './artists/artists.component';
+import { FooterComponent } from './footer/footer.component';
+import { UploadComponent } from './upload/upload.component';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
     AppComponent,
     SongsComponent,
-    ArtistsComponent
+    ArtistsComponent,
+    FooterComponent,
+    UploadComponent
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
