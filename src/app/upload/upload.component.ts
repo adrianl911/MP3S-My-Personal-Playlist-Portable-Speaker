@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+
+let xhttp = new XMLHttpRequest();
 
 @Component({
   selector: 'app-upload',
@@ -20,7 +23,7 @@ export class UploadComponent implements OnInit {
 
   update(value: string) { this.value = value; }
 
-  constructor(private _formBuilder: FormBuilder, private data: DataService) {}
+  constructor(private _formBuilder: FormBuilder, private data: DataService, private http: HttpClient) {}
 
   ngOnInit() {
 
@@ -38,6 +41,25 @@ export class UploadComponent implements OnInit {
 
     console.log("artistSelection: ", this.artistSelection);
 
+  }
+
+  uploadSong() {
+    xhttp.open("POST", "http://192.168.43.32:5000/api/upload", false);
+    xhttp.send();
+  }
+
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+  }
+
+  selectedFile: File = null;
+
+  onUpload() {
+    const fd = new FormData();
+    fd.append('image', this.selectedFile, this.selectedFile.name);
+    this.http.post('http://192.168.43.32:5000/api/upload', fd).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }

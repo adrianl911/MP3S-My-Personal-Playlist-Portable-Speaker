@@ -61,7 +61,9 @@
   <mat-step [stepControl]="thirdFormGroup">
     <form [formGroup]="thirdFormGroup">
       <ng-template matStepLabel>Upload the song</ng-template>
-      <button mat-button color="accent">Upload file</button>
+      <input type="file" name="file" (change)="onFileSelected($event)">
+      <!-- <input type="submit"> -->
+      <button mat-button type="button" color="accent" (click)="onUpload()">Upload file</button>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>

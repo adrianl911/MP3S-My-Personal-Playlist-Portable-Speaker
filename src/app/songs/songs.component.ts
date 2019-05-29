@@ -70,8 +70,8 @@ this.previousSong = source;
     }
   pauseMusic(source) {
   	xhttp.open("POST", "http://192.168.43.32:5000/api/pause", false);
-	xhttp.send();
-	console.log("pause: " + this.counter);
+	  xhttp.send();
+	  console.log("pause: " + this.counter);
 	if ($(".pause-" + source).is(":visible")) {
             $(".pause-" + source).hide();
             $(".play-arrow-" + source).show();
