@@ -20,7 +20,7 @@
       <ng-template #elseArtist>
 		<mat-form-field>
 		<!-- <mat-label>Add a new artist</mat-label> -->
-		<input #newArtist matInput placeholder="Artist name" formControlName="firstCtrl" required (keyup.enter)="update(newArtist.value)" (blur)="update(newArtist.value)">
+		<input #newArtist matInput placeholder="Artist name" formControlName="firstCtrl" (keyup.enter)="update(newArtist.value)" (blur)="update(newArtist.value)">
 		</mat-form-field>
 	  </ng-template>
 	  <div>Value: {{value}}</div>
@@ -42,16 +42,26 @@
       	<!-- <mat-label class="form-labels">Select an existing album</mat-label> -->
         <mat-select [(value)]="selected" placeholder="Album name">
         	<ng-container *ngFor="let artist of artists">
-	      <mat-option *ngFor="let album of artist['albums']" value={{artist.name}} (click)="update(selected)">{{album.title}}</mat-option></ng-container>
+	      <mat-option *ngFor="let album of artist['albums']" value={{album.title}} (click)="update(selected)">{{album.title}}</mat-option></ng-container>
 	    </mat-select>
       </mat-form-field>
       <ng-template #elseAlbum>
-		<mat-form-field>
-		<!-- <mat-label>Add a new album</mat-label> -->
-		<input #newAlbum matInput placeholder="Album name" formControlName="secondCtrl" required (keyup.enter)="update(newAlbum.value)" (blur)="update(newAlbum.value)">
-		</mat-form-field>
-	  </ng-template>
-	  <div>Value: {{value}}</div>
+		    <mat-form-field>
+    		<!-- <mat-label>Add a new album</mat-label> -->
+    		  <input #newAlbum matInput placeholder="Album name" formControlName="secondCtrl" (keyup.enter)="update(newAlbum.value)" (blur)="update(newAlbum.value)">
+    		</mat-form-field>
+	    </ng-template>
+	    <div>Value: {{value}}</div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Upload the song</ng-template>
+      <button mat-button color="accent">Upload file</button>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>

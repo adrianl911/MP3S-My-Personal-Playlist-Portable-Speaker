@@ -9,10 +9,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UploadComponent implements OnInit {
 
-  isLinear = true;
+  isLinear = false;
   artists: Object;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
   artistSelection: string;
   albumSelection: string;
   value = '';
@@ -30,6 +31,9 @@ export class UploadComponent implements OnInit {
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      thirdCtrl: ['', Validators.required]
     });
 
     console.log("artistSelection: ", this.artistSelection);
