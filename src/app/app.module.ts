@@ -15,6 +15,7 @@ import { UploadComponent } from './upload/upload.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
+import { PlaylistComponent } from './playlist/playlist.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { environment } from '../environments/environment';
     SongsComponent,
     ArtistsComponent,
     FooterComponent,
-    UploadComponent
+    UploadComponent,
+    PlaylistComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

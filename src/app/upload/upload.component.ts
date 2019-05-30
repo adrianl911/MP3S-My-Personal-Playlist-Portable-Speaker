@@ -26,8 +26,7 @@ export class UploadComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private data: DataService, private http: HttpClient) {}
 
   ngOnInit() {
-
-  	this.data.getArtist().then((data) => { this.artists = data })
+    this.data.getArtist().then((data) => { this.artists = data })
 
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
@@ -40,7 +39,6 @@ export class UploadComponent implements OnInit {
     });
 
     console.log("artistSelection: ", this.artistSelection);
-
   }
 
   uploadSong() {
@@ -48,18 +46,17 @@ export class UploadComponent implements OnInit {
     xhttp.send();
   }
 
+  selectedFile: File = null;
+
   onFileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
+    console.log(event);
   }
-
-  selectedFile: File = null;
 
   onUpload() {
     const fd = new FormData();
-    fd.append('image', this.selectedFile, this.selectedFile.name);
-    this.http.post('http://192.168.43.32:5000/api/upload', fd).subscribe(res => {
-      console.log(res);
-    });
+    fd.append('file', this.selectedFile, this.selectedFile.name);
+    this.http.post('http://192.168.43.32:5000/api/upload', fd).subscribe();
   }
 
 }
