@@ -25,7 +25,7 @@
 	  </ng-template>
 	  <div>Value: {{value}}</div>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext (click)="pushArtist(value)">Next</button>
       </div>
     </form>
   </mat-step>
@@ -42,8 +42,13 @@
       	<!-- <mat-label class="form-labels">Select an existing album</mat-label> -->
         <mat-select [(value)]="selected" placeholder="Album name">
         	<ng-container *ngFor="let artist of artists">
-	      <mat-option *ngFor="let album of artist['albums']" value={{album.title}} (click)="update(selected)">{{album.title}}</mat-option></ng-container>
-	    </mat-select>
+            <ng-container *ngFor="let album of albums">
+	           <mat-option *ngIf="album.artistId == artist.id" value={{album.name}} (click)="update(selected)">
+              {{album.name}}
+             </mat-option>
+            </ng-container>
+          </ng-container>
+	      </mat-select>
       </mat-form-field>
       <ng-template #elseAlbum>
 		    <mat-form-field>
@@ -54,7 +59,7 @@
 	    <div>Value: {{value}}</div>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext (click)="pushAlbum(value)">Next</button>
       </div>
     </form>
   </mat-step>

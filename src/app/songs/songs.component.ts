@@ -3,7 +3,7 @@ import { DataService } from '../data.service';
 import { Observable } from 'rxjs';
 import * as $ from 'jquery';
 import slugify from 'slugify';
-
+import {MyData,MyArtist,MySong,MyAlbum} from '../interface'
 let xhttp = new XMLHttpRequest();
 
 @Component({
@@ -13,15 +13,45 @@ let xhttp = new XMLHttpRequest();
 })
 export class SongsComponent implements OnInit {
 
-  artists: Object;
-  songs$: any;
+  albums: any;
+  artists: any;
+  songs: any;
+  song: any;
   counter = 0;
   previousSong = "";
 
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getArtist().then((data) => { this.artists = data });
+    let artistId, artistName;
+    let albumId, albumName;
+    let albumList: any[];
+     this.data.getSongs().subscribe((dataList) => {
+      this.songs = dataList;
+     });
+
+    //  .then((data) => { 
+    //   this.artists = data;
+    //   for (var i = this.artists.length - 1; i >= 0; i--) {
+    //     artistId = this.artists[i].id;
+    //     artistName = this.artists[i].name;
+    //     this.data.getAlbum(artistId,artistName).then((dataAlbum) => {
+    //       this.albums = dataAlbum;
+    //       for (var j = this.albums.length - 1; j >= 0; j--) {
+    //         albumId = this.albums[j].id;
+    //         albumName = this.albums[j].name;
+    //         this.data.getSong(artistId, artistName, albumId, albumName).then((songList) => {
+    //           this.songs = songList;
+    //           //console.log(this.songs);
+    //         });
+    //       }
+    //     });
+    //   }
+    //   //console.log("songs: ", this.songs);
+
+    // });
+    
+
     // this.artists = this.data.getArtist()
     // this.data.getArtist().subscribe(
     //   data => this.artists = data
@@ -29,11 +59,13 @@ export class SongsComponent implements OnInit {
   }
 
   playMusic(source) {
+    let slug = slugify(source);
+
     console.log("source: ", source);
     console.log("play: ", this.counter);
 
-    $(".play-arrow-" + source).hide();
-    $(".pause-" + source).show();
+    $(".play-arrow-" + slug).hide();
+    $(".pause-" + slug).show();
 
     let api = "http://192.168.43.32:5000/api/play/" + source;
     console.log(this.previousSong + " AFARA");
@@ -41,43 +73,46 @@ export class SongsComponent implements OnInit {
     {
         this.counter = 0;
         console.log(this.previousSong + " IN");
-        $(".play-arrow-" + this.previousSong).show();
-        $(".pause-" + this.previousSong).hide();
+        $(".play-arrow-" + slugify(this.previousSong)).show();
+        $(".pause-" + slugify(this.previousSong)).hide();
     }
 
     if (this.counter == 0) {
         xhttp.open("POST", api, false);
         xhttp.send();
-        $(".play-arrow-" + source).hide();
-        $(".pause-" + source).show();
+        $(".play-arrow-" + slug).hide();
+        $(".pause-" + slug).show();
         this.counter++;
     }
     else {
       xhttp.open("POST", "http://192.168.43.32:5000/api/pause", false);
       xhttp.send();
-      if ($(".pause-" + source + ":hidden")) {
-        $(".pause-" + source).show();
-        $(".play-arrow-" + source).hide();
+      if ($(".pause-" + slug + ":hidden")) {
+        $(".pause-" + slug).show();
+        $(".play-arrow-" + slug).hide();
       }
       else {
-        $(".play-arrow-" + source).show();
-        $(".pause-" + source).hide();
+        $(".play-arrow-" + slug).show();
+        $(".pause-" + slug).hide();
       }
     }
     this.previousSong = source;
     console.log("previousSong: ", this.previousSong);
   }
+
   pauseMusic(source) {
+    let slug = slugify(source);
+
   	xhttp.open("POST", "http://192.168.43.32:5000/api/pause", false);
 	  xhttp.send();
 	  console.log("pause: " + this.counter);
-	  if ($(".pause-" + source).is(":visible")) {
-            $(".pause-" + source).hide();
-            $(".play-arrow-" + source).show();
+	  if ($(".pause-" + slug).is(":visible")) {
+            $(".pause-" + slug).hide();
+            $(".play-arrow-" + slug).show();
     }
     else {
-            $(".play-arrow-" + source).hide();
-            $(".pause-" + source).show();
+            $(".play-arrow-" + slug).hide();
+            $(".pause-" + slug).show();
     }
   }
 }

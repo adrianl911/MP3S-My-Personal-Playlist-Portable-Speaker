@@ -10,15 +10,25 @@ import { Observable } from 'rxjs';
 
 export class ArtistsComponent implements OnInit {
 
-  artists: Object;
+  artists: any;
+  albums: any;
+  songs: any;
   songs$: any;
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getArtist().then((data) => { this.artists = data })
-    // this.data.getArtist().subscribe(
-    //   data => this.artists = data
-    // )
+    let artistId, artistName;
+    let albumId, albumName;
+    let albumList: any[];
+    this.data.getArtists().subscribe((data) => {
+      this.artists = data;
+    });
+    this.data.getSongs().subscribe((data) => {
+      this.songs = data;
+    });
+    this.data.getAlbums().subscribe((data) => {
+      this.albums = data;
+    });
   }
 
 }

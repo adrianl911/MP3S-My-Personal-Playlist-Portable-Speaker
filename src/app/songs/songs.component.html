@@ -1,17 +1,15 @@
-<ng-container *ngFor="let artist of artists" class="list-of-artists">
-  <ng-container *ngFor="let album of artist['albums']" class="list-of-albums">
-      <mat-card class="song-card" *ngFor="let song of album['songs']" class="list-of-songs">
+<ng-container *ngFor="let song of songs" class="list-of-songs">
+      <mat-card class="song-card" >
         <mat-card-content>
           <mat-card-title class="song-title">
-          	<mat-icon [ngClass]="'play-arrow play-arrow-'+song.title" (click)="playMusic(song.title);">play_arrow
+          	<mat-icon [ngClass]="'play-arrow play-arrow-'+song.slug" (click)="playMusic(song.name);">play_arrow
           	</mat-icon>
-          	<mat-icon [ngClass]="'pause pause-'+song.title" (click)="pauseMusic(song.title);">pause
+          	<mat-icon [ngClass]="'pause pause-'+song.slug" (click)="pauseMusic(song.name);">pause
           	</mat-icon>
-          	{{song.title}}
+          	{{song.name}}
           </mat-card-title>
-          <mat-card-subtitle>{{artist.name}} • {{album.title}}<div class="card-spacer">{{song.length}}</div></mat-card-subtitle>
+          <mat-card-subtitle>{{song.artistName}} • {{song.albumName}}<div class="card-spacer"></div></mat-card-subtitle>
         </mat-card-content>
       </mat-card>
-  </ng-container>
 </ng-container>
 <div class="space-after-songs"></div>

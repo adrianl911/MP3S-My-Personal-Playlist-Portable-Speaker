@@ -3,6 +3,8 @@ import { DataService } from '../data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
+import slugify from 'slugify';
+
 let xhttp = new XMLHttpRequest();
 
 @Component({
@@ -13,7 +15,8 @@ let xhttp = new XMLHttpRequest();
 export class UploadComponent implements OnInit {
 
   isLinear = false;
-  artists: Object;
+  artists: any;
+  albums:any;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -26,7 +29,12 @@ export class UploadComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private data: DataService, private http: HttpClient) {}
 
   ngOnInit() {
-    this.data.getArtist().then((data) => { this.artists = data })
+    this.data.getArtists().subscribe((data) => {
+      this.artists = data;
+    });
+    this.data.getAlbums().subscribe((data) => {
+      this.albums = data;
+    });
 
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
@@ -37,20 +45,25 @@ export class UploadComponent implements OnInit {
     this.thirdFormGroup = this._formBuilder.group({
       thirdCtrl: ['', Validators.required]
     });
-
-    console.log("artistSelection: ", this.artistSelection);
-  }
-
-  uploadSong() {
-    xhttp.open("POST", "http://192.168.43.32:5000/api/upload", false);
-    xhttp.send();
   }
 
   selectedFile: File = null;
 
   onFileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
-    console.log(event);
+    let slug = slugify(event.target.files[0].name.slice(0, -4));
+  }
+
+  pushArtist(artistName) {
+    console.log(artistName);
+  }
+
+  pushAlbum(albumName) {
+    console.log(albumName);
+  }
+
+  pushToFirebase() {
+
   }
 
   onUpload() {
