@@ -8,7 +8,7 @@
     <ng-container *ngFor="let album of albums">
       <ng-container *ngIf="album.artistId == artist.id">
         <button class="list-of-albums" mat-button [matMenuTriggerFor]="menu">
-          <img src="{{album.picture}}" class="album-picture" height="200px" width="200px">
+          <!-- <img src="{{album.picture}}" class="album-picture" height="200px" width="200px"> -->
           {{album.name}}
         </button>
       </ng-container>

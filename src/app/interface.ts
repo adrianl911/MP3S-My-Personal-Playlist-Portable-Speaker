@@ -21,3 +21,8 @@ export interface MySong {
 	albumName:string,
 	artistName:string
 }
+export interface MyPlaylist {
+	id: any,
+	name: string,
+	songs: any
+}

@@ -26,9 +26,9 @@ export class SongsComponent implements OnInit {
     let artistId, artistName;
     let albumId, albumName;
     let albumList: any[];
-     this.data.getSongs().subscribe((dataList) => {
+    this.data.getSongs().subscribe((dataList) => {
       this.songs = dataList;
-     });
+    });
 
     //  .then((data) => { 
     //   this.artists = data;
@@ -58,61 +58,56 @@ export class SongsComponent implements OnInit {
     // )
   }
 
+  showPlay(source) {
+    $(".play-arrow-" + source).show();
+    $(".pause-" + source).hide();
+  }
+
+  showPause(source) {
+    $(".play-arrow-" + source).hide();
+    $(".pause-" + source).show();
+  }
+
   playMusic(source) {
-    let slug = slugify(source);
+    let slug = slugify(source, '_');
+    this.showPause(slug);
 
-    console.log("source: ", source);
-    console.log("play: ", this.counter);
+    let api = "http://192.168.43.32:5000/api/play/" + slug;
 
-    $(".play-arrow-" + slug).hide();
-    $(".pause-" + slug).show();
-
-    let api = "http://192.168.43.32:5000/api/play/" + source;
-    console.log(this.previousSong + " AFARA");
     if(this.previousSong != source)
     {
         this.counter = 0;
-        console.log(this.previousSong + " IN");
-        $(".play-arrow-" + slugify(this.previousSong)).show();
-        $(".pause-" + slugify(this.previousSong)).hide();
+        this.showPlay(this.previousSong);
     }
-
     if (this.counter == 0) {
         xhttp.open("POST", api, false);
         xhttp.send();
-        $(".play-arrow-" + slug).hide();
-        $(".pause-" + slug).show();
+        this.showPause(slug);
         this.counter++;
     }
     else {
       xhttp.open("POST", "http://192.168.43.32:5000/api/pause", false);
       xhttp.send();
       if ($(".pause-" + slug + ":hidden")) {
-        $(".pause-" + slug).show();
-        $(".play-arrow-" + slug).hide();
+        this.showPause(slug);
       }
       else {
-        $(".play-arrow-" + slug).show();
-        $(".pause-" + slug).hide();
+        this.showPlay(slug);
       }
     }
     this.previousSong = source;
-    console.log("previousSong: ", this.previousSong);
   }
 
   pauseMusic(source) {
-    let slug = slugify(source);
+    let slug = slugify(source, '_');
 
   	xhttp.open("POST", "http://192.168.43.32:5000/api/pause", false);
 	  xhttp.send();
-	  console.log("pause: " + this.counter);
 	  if ($(".pause-" + slug).is(":visible")) {
-            $(".pause-" + slug).hide();
-            $(".play-arrow-" + slug).show();
+      this.showPlay(slug);
     }
     else {
-            $(".play-arrow-" + slug).hide();
-            $(".pause-" + slug).show();
+      this.showPause(slug);
     }
   }
 }

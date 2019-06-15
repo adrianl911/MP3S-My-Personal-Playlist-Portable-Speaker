@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable, of } from 'rxjs';
-import {MyData,MyArtist,MySong,MyAlbum} from './interface'
+import { MyData, MyArtist, MySong, MyAlbum, MyPlaylist } from './interface'
 //import { AngularFireDatabase } from "angularfire2/database-deprecated";
 //import * as firebase from 'firebase';
 //import { AngularFireDatabase } from 'angularfire2/database';
@@ -11,10 +11,9 @@ import {MyData,MyArtist,MySong,MyAlbum} from './interface'
 })
 export class DataService {
 	dataArtist: MyArtist[] =[];
-  dataAlbum: MyAlbum[] = [];
-  dataSong: MySong[] = [];
-  items: any;
-  //constructor(private http: HttpClient) { }
+	dataAlbum: MyAlbum[] = [];
+	dataSong: MySong[] = [];
+
 	constructor(private db: AngularFireDatabase) {
       this.fetchArtists();
       this.fetchAlbums();
@@ -36,9 +35,9 @@ export class DataService {
   getArtists(): Observable<MyArtist[]> {
     return of(this.dataArtist);
   }
+
   fetchAlbums() {
     let firebaseList = this.db.list('/albums').snapshotChanges().subscribe(actions => {
-        //this.dataArtist = [];
         actions.forEach(action => {
           let value = action.payload.val() as MyAlbum;
           let id = action.payload.key;
@@ -52,14 +51,14 @@ export class DataService {
             });
           });
         });
-      });
-  }
+    });
+  }	
   getAlbums(): Observable<MyAlbum[]> {
     return of(this.dataAlbum);
   }
+
   fetchSongs() {
     let firebaseList = this.db.list('/songs').snapshotChanges().subscribe(actions => {
-        //this.dataArtist = [];
         actions.forEach(action => {
           let value = action.payload.val() as MySong;
           let id = action.payload.key;
@@ -76,9 +75,18 @@ export class DataService {
         });
       });
   }
-  
   getSongs(): Observable<MySong[]> {
     return of(this.dataSong);
+  }
+
+  pushArtist(obj) {
+    this.db.list('/artists').push(obj);
+  }
+  pushAlbum(obj) {
+  	this.db.list('/albums').push(obj);
+  }
+  pushSong(obj) {
+  	this.db.list('/songs').push(obj);
   }
   // getSong(artistId, artistName, albumId, albumName) {
   //   return new Promise((resolve, reject) => {

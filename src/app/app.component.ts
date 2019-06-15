@@ -8,5 +8,5 @@ import * as $ from 'jquery';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'pp';
+  title = 'MP3S';
 }
