@@ -1,4 +1,4 @@
-import { MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatInputModule } from '@angular/material';
+import { MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatInputModule, MatDialogModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -13,9 +13,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
 
-  imports: [FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatInputModule, MatToolbarModule, MatIconModule, MatTabsModule, MatCardModule, MatExpansionModule, MatMenuModule, MatRadioModule, MatSelectModule, MatStepperModule],
+  imports: [FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDialogModule, MatInputModule, MatToolbarModule, MatIconModule, MatTabsModule, MatCardModule, MatExpansionModule, MatMenuModule, MatRadioModule, MatSelectModule, MatStepperModule],
 
-  exports: [FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatInputModule, MatToolbarModule, MatIconModule, MatTabsModule, MatCardModule, MatExpansionModule, MatMenuModule, MatRadioModule, MatSelectModule, MatStepperModule]
+  exports: [FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDialogModule, MatInputModule, MatToolbarModule, MatIconModule, MatTabsModule, MatCardModule, MatExpansionModule, MatMenuModule, MatRadioModule, MatSelectModule, MatStepperModule]
 
 })
 export class MaterialModule { }

@@ -13,11 +13,38 @@ export class DataService {
 	dataArtist: MyArtist[] =[];
 	dataAlbum: MyAlbum[] = [];
 	dataSong: MySong[] = [];
+  dataPlaylist: MyPlaylist[] = [];
 
 	constructor(private db: AngularFireDatabase) {
       this.fetchArtists();
       this.fetchAlbums();
       this.fetchSongs();
+      this.fetchPlaylists();
+  }
+
+  fetchPlaylists() {
+    let firebaseList = this.db.list('/playlists').snapshotChanges().subscribe(actions => {
+        //this.dataArtist = [];
+        actions.forEach(action => {
+          let value = action.payload.val() as MyPlaylist;
+          let id = action.payload.key;
+          var obj: MyPlaylist;
+          var newObj = {};
+          obj = { id: id, name: value.name, songs: value.songs};
+          this.dataPlaylist.push(obj);
+          // var tmpData: MyPlaylist[] = [];
+          // tmpData.push(obj);
+          // tmpData.forEach(data => {
+          //   songs.push(data.songs);
+          // })
+          // newObj = {id: id, name: value.name, songs: songs};
+          // this.dataPlaylist.push(newObj);
+          console.log("this.dataPlaylist:", this.dataPlaylist);
+        });
+      });
+  }
+  getPlaylists(): Observable<MyPlaylist[]> {
+    return of(this.dataPlaylist);
   }
 
   fetchArtists() {
@@ -87,6 +114,12 @@ export class DataService {
   }
   pushSong(obj) {
   	this.db.list('/songs').push(obj);
+  }
+  pushPlaylist(obj) {
+    this.db.list('/playlists').push(obj);
+  }
+  pushToPlaylist(id, obj) {
+    this.db.list('/playlists/' + id + '/songs').push(obj);
   }
   // getSong(artistId, artistName, albumId, albumName) {
   //   return new Promise((resolve, reject) => {

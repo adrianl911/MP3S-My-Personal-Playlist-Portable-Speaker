@@ -8,7 +8,14 @@
           	</mat-icon>
           	{{song.name}}
           </mat-card-title>
-          <mat-card-subtitle>{{song.artistName}} • {{song.albumName}}<div class="card-spacer"><button mat-button>Add to playlist</button></div></mat-card-subtitle>
+          <mat-card-subtitle>{{song.artistName}} • {{song.albumName}}
+            <div class="card-spacer">
+              <button mat-button [matMenuTriggerFor]="menuPlaylists">Add to playlist</button>
+              <mat-menu #menuPlaylists="matMenu">
+                <button mat-menu-item *ngFor="let playlist of playlists" (click)="pushToPlaylist(playlist.id, song.name)">{{playlist.name}}</button>
+              </mat-menu>
+            </div>
+          </mat-card-subtitle>
         </mat-card-content>
       </mat-card>
 </ng-container>

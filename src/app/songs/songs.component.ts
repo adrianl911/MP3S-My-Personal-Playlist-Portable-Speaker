@@ -3,7 +3,7 @@ import { DataService } from '../data.service';
 import { Observable } from 'rxjs';
 import * as $ from 'jquery';
 import slugify from 'slugify';
-import {MyData,MyArtist,MySong,MyAlbum} from '../interface'
+import {MyData, MyArtist, MySong, MyAlbum, MyPlaylist} from '../interface'
 let xhttp = new XMLHttpRequest();
 
 @Component({
@@ -17,6 +17,7 @@ export class SongsComponent implements OnInit {
   artists: any;
   songs: any;
   song: any;
+  playlists: any;
   counter = 0;
   previousSong = "";
 
@@ -28,6 +29,11 @@ export class SongsComponent implements OnInit {
     let albumList: any[];
     this.data.getSongs().subscribe((dataList) => {
       this.songs = dataList;
+      console.log("this.songs:",this.songs);
+    });
+    this.data.getPlaylists().subscribe((data) => {
+      this.playlists = data;
+      console.log("this.playlists:", this.playlists);
     });
 
     //  .then((data) => { 
@@ -108,6 +114,16 @@ export class SongsComponent implements OnInit {
     }
     else {
       this.showPause(slug);
+    }
+  }
+
+  pushToPlaylist(id, name) {
+    for (var i = 0; i < this.songs.length; i++) {
+      if (this.songs[i].name == name) {
+        console.log("this.songs[i]:", this.songs[i]);
+        console.log("id:", id);
+        this.data.pushToPlaylist(id, this.songs[i]);
+      }
     }
   }
 }

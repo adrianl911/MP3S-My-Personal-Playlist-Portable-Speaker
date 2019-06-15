@@ -1,3 +1,34 @@
-<p>
-  playlists works!
-</p>
+<div class="row">
+	<button mat-button (click)="openDialog()">Create a playlist</button>
+</div>
+
+<p>{{name}}</p>
+
+<mat-accordion *ngFor="let playlist of playlists" class="list-of-artists">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header style="background: rgb(65, 38, 76)">
+          <mat-panel-title>
+            {{playlist.name}}
+          </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container *ngFor="let song of playlist.songs" class="list-of-songs">
+      <mat-card class="song-card" >
+        <mat-card-content>
+          <mat-card-title class="song-title">
+          	<mat-icon [ngClass]="'play-arrow play-arrow-'+song.slug" (click)="playMusic(song.name);">play_arrow
+          	</mat-icon>
+          	<mat-icon [ngClass]="'pause pause-'+song.slug" (click)="pauseMusic(song.name);">pause
+          	</mat-icon>
+          	{{song.name}}
+          </mat-card-title>
+          <mat-card-subtitle>{{song.artistName}} • {{song.albumName}}</mat-card-subtitle>
+        </mat-card-content>
+      </mat-card>
+</ng-container>
+    
+
+    <!--<ul *ngFor="let album of artist['albums']" class="list-of-albums">-->
+      <!--<li>{{album.title}}</li>-->
+    <!--</ul>-->
+  </mat-expansion-panel>
+</mat-accordion>

@@ -24,5 +24,5 @@ export interface MySong {
 export interface MyPlaylist {
 	id: any,
 	name: string,
-	songs: any
+	songs: []
 }
